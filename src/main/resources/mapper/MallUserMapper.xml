@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhu.ecommercesystem.mapper.MallUserMapper">
+<!--int insert(MallUser record);-->
+<insert id="insert" parameterType="mallUser">
+    insert into tb_newbee_mall_user (user_id, nick_name, login_name,
+                                     password_md5, introduce_sign, address,
+                                     is_deleted, locked_flag, create_time
+    )
+    values (#{userId,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR},
+            #{passwordMd5,jdbcType=VARCHAR}, #{introduceSign,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+            #{isDeleted,jdbcType=TINYINT}, #{lockedFlag,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}
+           )
+</insert>
+    <!--int insertSelective(MallUser record);-->
+<insert id="insertSelective" parameterType="mallUser">
+    insert into tb_newbee_mall_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="userId != null">
+            user_id,
+        </if>
+        <if test="nickName != null">
+            nick_name,
+        </if>
+        <if test="loginName != null">
+            login_name,
+        </if>
+        <if test="passwordMd5 != null">
+            password_md5,
+        </if>
+        <if test="introduceSign != null">
+            introduce_sign,
+        </if>
+        <if test="address != null">
+            address,
+        </if>
+        <if test="isDeleted != null">
+            is_deleted,
+        </if>
+        <if test="lockedFlag != null">
+            locked_flag,
+        </if>
+        <if test="createTime != null">
+            create_time,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="userId != null">
+            #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="nickName != null">
+            #{nickName,jdbcType=VARCHAR},
+        </if>
+        <if test="loginName != null">
+            #{loginName,jdbcType=VARCHAR},
+        </if>
+        <if test="passwordMd5 != null">
+            #{passwordMd5,jdbcType=VARCHAR},
+        </if>
+        <if test="introduceSign != null">
+            #{introduceSign,jdbcType=VARCHAR},
+        </if>
+        <if test="address != null">
+            #{address,jdbcType=VARCHAR},
+        </if>
+        <if test="isDeleted != null">
+            #{isDeleted,jdbcType=TINYINT},
+        </if>
+        <if test="lockedFlag != null">
+            #{lockedFlag,jdbcType=TINYINT},
+        </if>
+        <if test="createTime != null">
+            #{createTime,jdbcType=TIMESTAMP},
+        </if>
+    </trim>
+</insert>
+    <!--int deleteByPrimaryKey(Long userId);-->
+<update id="deleteByPrimaryKey">
+    update tb_newbee_mall_user set is_deleted = 1
+    where user_id = #{userId,jdbcType=BIGINT} and is_deleted = 0
+</update>
+    <!--int updateByPrimaryKeySelective(MallUser record);-->
+<update id="updateByPrimaryKeySelective" parameterType="mallUser">
+    update tb_newbee_mall_user
+    <set>
+        <if test="nickName != null">
+            nick_name = #{nickName,jdbcType=VARCHAR},
+        </if>
+        <if test="loginName != null">
+            login_name = #{loginName,jdbcType=VARCHAR},
+        </if>
+        <if test="passwordMd5 != null">
+            password_md5 = #{passwordMd5,jdbcType=VARCHAR},
+        </if>
+        <if test="introduceSign != null">
+            introduce_sign = #{introduceSign,jdbcType=VARCHAR},
+        </if>
+        <if test="address != null">
+            address = #{address,jdbcType=VARCHAR},
+        </if>
+        <if test="isDeleted != null">
+            is_deleted = #{isDeleted,jdbcType=TINYINT},
+        </if>
+        <if test="lockedFlag != null">
+            locked_flag = #{lockedFlag,jdbcType=TINYINT},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+        </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+</update>
+    <!--int updateByPrimaryKey(MallUser record);-->
+<update id="updateByPrimaryKey" parameterType="mallUser">
+    update tb_newbee_mall_user
+    set nick_name = #{nickName,jdbcType=VARCHAR},
+        login_name = #{loginName,jdbcType=VARCHAR},
+        password_md5 = #{passwordMd5,jdbcType=VARCHAR},
+        introduce_sign = #{introduceSign,jdbcType=VARCHAR},
+        address = #{address,jdbcType=VARCHAR},
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+        locked_flag = #{lockedFlag,jdbcType=TINYINT},
+        create_time = #{createTime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=BIGINT}
+</update>
+    <!--int lockUserBatch(@Param("ids") Integer[] ids, @Param("lockStatus") int lockStatus);-->
+<update id="lockUserBatch">
+    update tb_newbee_mall_user
+    set locked_flag=#{lockStatus} where user_id in
+    <foreach item="id" collection="ids" open="(" separator="," close=")">
+        #{id}
+    </foreach>
+</update>
+    <!--MallUser selectByPrimaryKey(Long userId);-->
+<select id="selectByPrimaryKey" resultType="mallUser">
+    select *
+    from tb_newbee_mall_user
+    where user_id = #{userId,jdbcType=BIGINT} and is_deleted = 0
+</select>
+    <!--MallUser selectByLoginName(String loginName);-->
+<select id="selectByLoginName" resultType="mallUser">
+    select *
+    from tb_newbee_mall_user
+    where login_name = #{loginName} and is_deleted = 0
+</select>
+    <!--MallUser selectByLoginNameAndPasswd(@Param("loginName") String loginName, @Param("password") String password);-->
+<select id="selectByLoginNameAndPasswd" resultType="mallUser">
+    select *
+    from tb_newbee_mall_user
+    where login_name = #{loginName} and password_md5 = #{password} and is_deleted = 0
+</select>
+    <!--List<MallUser> findMallUserList(PageQueryUtil pageUtil);-->
+<select id="findMallUserList" resultType="mallUser" parameterType="map">
+    select *
+    from tb_newbee_mall_user
+    where 1=1
+    <if test="loginName!=null and loginName!=''">
+        and login_name = #{loginName}
+    </if>
+    order by create_time desc
+    <if test="start!=null and limit!=null">
+        limit #{start},#{limit}
+    </if>
+</select>
+    <!--int getTotalMallUsers(PageQueryUtil pageUtil);-->
+<select id="getTotalMallUsers" parameterType="map" resultType="int">
+    select count(*) from tb_newbee_mall_user
+    where 1=1
+    <if test="loginName!=null and loginName!=''">
+        and login_name = #{loginName}
+    </if>
+</select>
+</mapper>

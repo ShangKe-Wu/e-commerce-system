@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhu.ecommercesystem.mapper.OrderMapper">
+<!--int insert(Order record);-->
+<insert id="insert" parameterType="order">
+    insert into tb_newbee_mall_order (order_id, order_no, user_id,
+                                      total_price, pay_status, pay_type,
+                                      pay_time, order_status, extra_info,
+                                      user_address,is_deleted, create_time, update_time
+    )
+    values (#{orderId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT},
+            #{totalPrice,jdbcType=INTEGER}, #{payStatus,jdbcType=TINYINT}, #{payType,jdbcType=TINYINT},
+            #{payTime,jdbcType=TIMESTAMP}, #{orderStatus,jdbcType=TINYINT}, #{extraInfo,jdbcType=VARCHAR},
+            #{userAddress,jdbcType=VARCHAR},#{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+           )
+</insert>
+    <!--int insertSelective(Order record);-->
+<insert id="insertSelective" parameterType="order">
+    insert into tb_newbee_mall_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="orderId != null">
+            order_id,
+        </if>
+        <if test="orderNo != null">
+            order_no,
+        </if>
+        <if test="userId != null">
+            user_id,
+        </if>
+        <if test="totalPrice != null">
+            total_price,
+        </if>
+        <if test="payStatus != null">
+            pay_status,
+        </if>
+        <if test="payType != null">
+            pay_type,
+        </if>
+        <if test="payTime != null">
+            pay_time,
+        </if>
+        <if test="orderStatus != null">
+            order_status,
+        </if>
+        <if test="extraInfo != null">
+            extra_info,
+        </if>
+        <if test="userAddress != null">
+            user_address,
+        </if>
+        <if test="isDeleted != null">
+            is_deleted,
+        </if>
+        <if test="createTime != null">
+            create_time,
+        </if>
+        <if test="updateTime != null">
+            update_time,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="orderId != null">
+            #{orderId,jdbcType=BIGINT},
+        </if>
+        <if test="orderNo != null">
+            #{orderNo,jdbcType=VARCHAR},
+        </if>
+        <if test="userId != null">
+            #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="totalPrice != null">
+            #{totalPrice,jdbcType=INTEGER},
+        </if>
+        <if test="payStatus != null">
+            #{payStatus,jdbcType=TINYINT},
+        </if>
+        <if test="payType != null">
+            #{payType,jdbcType=TINYINT},
+        </if>
+        <if test="payTime != null">
+            #{payTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="orderStatus != null">
+            #{orderStatus,jdbcType=TINYINT},
+        </if>
+        <if test="extraInfo != null">
+            #{extraInfo,jdbcType=VARCHAR},
+        </if>
+        <if test="userAddress != null">
+            #{userAddress,jdbcType=VARCHAR},
+        </if>
+        <if test="isDeleted != null">
+            #{isDeleted,jdbcType=TINYINT},
+        </if>
+        <if test="createTime != null">
+            #{createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateTime != null">
+            #{updateTime,jdbcType=TIMESTAMP},
+        </if>
+    </trim>
+</insert>
+    <!--int deleteByPrimaryKey(Long orderId);-->
+<update id="deleteByPrimaryKey">
+    update tb_newbee_mall_order set is_deleted=1
+    where order_id = #{orderId,jdbcType=BIGINT} and is_deleted=0
+</update>
+    <!--int updateByPrimaryKeySelective(Order record);-->
+<update id="updateByPrimaryKeySelective" parameterType="order">
+    update tb_newbee_mall_order
+    <set>
+        <if test="orderNo != null">
+            order_no = #{orderNo,jdbcType=VARCHAR},
+        </if>
+        <if test="userId != null">
+            user_id = #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="totalPrice != null">
+            total_price = #{totalPrice,jdbcType=INTEGER},
+        </if>
+        <if test="payStatus != null">
+            pay_status = #{payStatus,jdbcType=TINYINT},
+        </if>
+        <if test="payType != null">
+            pay_type = #{payType,jdbcType=TINYINT},
+        </if>
+        <if test="payTime != null">
+            pay_time = #{payTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="orderStatus != null">
+            order_status = #{orderStatus,jdbcType=TINYINT},
+        </if>
+        <if test="extraInfo != null">
+            extra_info = #{extraInfo,jdbcType=VARCHAR},
+        </if>
+        <if test="userAddress != null">
+            user_address = #{userAddress,jdbcType=VARCHAR},
+        </if>
+        <if test="isDeleted != null">
+            is_deleted = #{isDeleted,jdbcType=TINYINT},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateTime != null">
+            update_time = #{updateTime,jdbcType=TIMESTAMP},
+        </if>
+    </set>
+    where order_id = #{orderId,jdbcType=BIGINT}
+</update>
+    <!--int updateByPrimaryKey(Order record);-->
+<update id="updateByPrimaryKey" parameterType="order">
+    update tb_newbee_mall_order
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+        user_id = #{userId,jdbcType=BIGINT},
+        total_price = #{totalPrice,jdbcType=INTEGER},
+        pay_status = #{payStatus,jdbcType=TINYINT},
+        pay_type = #{payType,jdbcType=TINYINT},
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+        order_status = #{orderStatus,jdbcType=TINYINT},
+        extra_info = #{extraInfo,jdbcType=VARCHAR},
+        user_address = #{userAddress,jdbcType=VARCHAR},
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=BIGINT}
+</update>
+    <!--Order selectByPrimaryKey(Long orderId);-->
+<select id="selectByPrimaryKey" resultType="order" parameterType="long">
+    select *
+    from tb_newbee_mall_order
+    where order_id = #{orderId,jdbcType=BIGINT}
+</select>
+    <!--Order selectByOrderNo(String orderNo);-->
+<select id="selectByOrderNo" resultType="order" parameterType="string">
+    select *
+    from tb_newbee_mall_order
+    where order_no = #{orderNo,jdbcType=VARCHAR} and is_deleted=0 limit 1
+</select>
+    <!--List<Order> findNewBeeMallOrderList(PageQueryUtil pageUtil);-->
+<select id="findNewBeeMallOrderList" resultType="order" parameterType="map">
+    select *
+    from tb_newbee_mall_order
+    <where>
+        <if test="orderNo!=null and orderNo!=''">
+            and order_no = #{orderNo}
+        </if>
+        <if test="userId!=null and userId!=''">
+            and user_id = #{userId}
+        </if>
+        <if test="payType!=null and payType!=''">
+            and pay_type = #{payType}
+        </if>
+        <if test="orderStatus!=null and orderStatus!=''">
+            and order_status = #{orderStatus}
+        </if>
+        <if test="isDeleted!=null and isDeleted!=''">
+            and is_deleted = #{isDeleted}
+        </if>
+        <if test="startTime != null and startTime.trim() != ''">
+            and create_time &gt; #{startTime}
+        </if>
+        <if test="endTime != null and endTime.trim() != ''">
+            and create_time &lt; #{endTime}
+        </if>
+    </where>
+    order by create_time desc
+    <if test="start!=null and limit!=null">
+        limit #{start},#{limit}
+    </if>
+</select>
+    <!--int getTotalNewBeeMallOrders(PageQueryUtil pageUtil);-->
+<select id="getTotalNewBeeMallOrders" resultType="int" parameterType="map">
+    select count(*) from tb_newbee_mall_order
+    <where>
+        <if test="orderNo!=null and orderNo!=''">
+            and order_no = #{orderNo}
+        </if>
+        <if test="userId!=null and userId!=''">
+            and user_id = #{userId}
+        </if>
+        <if test="payType!=null and payType!=''">
+            and pay_type = #{payType}
+        </if>
+        <if test="orderStatus!=null and orderStatus!=''">
+            and order_status = #{orderStatus}
+        </if>
+        <if test="isDeleted!=null and isDeleted!=''">
+            and is_deleted = #{isDeleted}
+        </if>
+        <if test="startTime != null and startTime.trim() != ''">
+            and create_time &gt; #{startTime}
+        </if>
+        <if test="endTime != null and endTime.trim() != ''">
+            and create_time &lt; #{endTime}
+        </if>
+    </where>
+</select>
+    <!--List<Order> selectByPrimaryKeys(@Param("orderIds") List<Long> orderIds);-->
+<select id="selectByPrimaryKeys" resultType="order">
+    select *
+    from tb_newbee_mall_order
+    where order_id in
+    <foreach collection="orderIds" item="item" index="index"
+             open="(" separator="," close=")">#{item}
+    </foreach>
+</select>
+    <!--int checkOut(@Param("orderIds") List<Long> orderIds);-->
+<update id="checkOut">
+    update tb_newbee_mall_order
+    set order_status = 3,update_time = now()
+    where order_id in
+    <foreach collection="orderIds" item="item" index="index" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+</update>
+    <!--int closeOrder(@Param("orderIds") List<Long> orderIds, @Param("orderStatus") int orderStatus);-->
+<update id="closeOrder">
+    update tb_newbee_mall_order
+    set order_status = #{orderStatus},update_time = now()
+    where order_id in
+    <foreach collection="orderIds" item="item" index="index" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+</update>
+    <!--int checkDone(@Param("orderIds") List<Long> asList);-->
+<update id="checkDone">
+    update tb_newbee_mall_order
+    set order_status = 2,update_time = now()
+    where order_id in
+    <foreach collection="orderIds" item="item" index="index" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+</update>
+</mapper>
